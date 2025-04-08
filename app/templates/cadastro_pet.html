@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro de Pet</title>
-  <link rel="stylesheet" href="{{ url_for('styles') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/mainpage.css') }}">
 </head>
 <body>
   <header>
@@ -26,10 +26,16 @@
       </div>
       <div class="form-actions">
         <button class="btn" type="submit">Cadastrar</button>
-        <button class="btn btn-secondary" type="button" href="{{ url_for('index') }}">Voltar</button>
+        <button class="btn btn-secondary" type="button" onclick="goBack()">Voltar</button>
       </div>
     </form>
   </main>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
   
   <footer>
     <p>© 2025 Petshop Digital</p>
