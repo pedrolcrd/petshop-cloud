@@ -1,0 +1,39 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AZURE_WEBAPP_NAME: petshop-app-${{ secrets.APP_SUFFIX }}  # Criar secret com o suffix (ex: a1b2c3)
+  AZURE_WEBAPP_PACKAGE_PATH: './app'
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Zip the application files
+      run: |
+        cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} && \
+        zip -r ../app.zip . -x '*.git*'
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: ./app.zip
