@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Petshop Digital</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/mainpage.css') }}">
 </head>
 <body>
   <header>
     <h1>Bem-vindo ao Petshop Digital</h1>
     <nav>
-      <a class="btn" href="{{ url_for('cadastro_pet') }}">Cadastrar novo pet</a>
+      <a class="btn" href="{{ url_for('cadastro_pet') }}">Cadastrar pet</a>
     </nav>
   </header>
   
