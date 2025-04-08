@@ -11,7 +11,7 @@
   </header>
   
   <main>
-    <form method="POST" class="form-cadastro">
+    <form method="POST" class="form-cadastro" action="{{ url_for('cadastro_pet') }}">
       <div class="form-group">
         <label for="cliente_id">ID do Cliente:</label>
         <input type="text" name="nome" id="nome" required>
